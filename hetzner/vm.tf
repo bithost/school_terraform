@@ -3,9 +3,7 @@
 # type        = string
 # default     = "saltcorn.lanlab.xyz"
 #}
-provider "hcloud" {
-  token = var.hcloud_token
-}
+
 
 
 resource "hcloud_ssh_key" "default" {
