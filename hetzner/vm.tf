@@ -6,21 +6,23 @@
 
 
 
-resource "hcloud_ssh_key" "default" {
-  name       = "main_ssh_key"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
-resource "hcloud_ssh_key" "ansible" {
-  name       = "ansible_ssh_key"
-  public_key = file("~/.ssh/ansible.pub")
-}
+#resource "hcloud_ssh_key" "default" {
+ #name       = "tadas@code"
+ #public_key = file("~/.ssh/id_rsa.pub")
+#}
+#resource "hcloud_ssh_key" "ansible" {
+ #name       = "ansible@ansible"
+ #public_key = file("~/.ssh/ansible.pub")
+
+#
+
 
 //main.tf
 resource "hcloud_server" "controller" {
   name = "kube.lanlab.xyz"
   server_type = "cx11"
   image = "ubuntu-22.04"
-  ssh_keys = [hcloud_ssh_key.default.id,hcloud_ssh_key.ansible.id, ]
+  #ssh_keys = [hcloud_ssh_key.default.id,hcloud_ssh_key.ansible.id, ]
   location = "hel1"
   labels = {
     role = "kube"
