@@ -1,11 +1,11 @@
-resource "hcloud_network" "network" {
-  name     = "network"
+resource "hcloud_network" "private-lan" {
+  name     = "private-lan"
   ip_range = "10.0.0.0/16"
 }
 
 resource "hcloud_network_subnet" "network-subnet" {
   type         = "cloud"
-  network_id   = hcloud_network.network.id
+  network_id   = hcloud_network.private-lan.id
   network_zone = "eu-central"
   ip_range     = "10.0.1.0/24"
 }
@@ -26,10 +26,10 @@ resource "hcloud_server" "kube" {
     ipv6_enabled = false
   }
     network {
-    network_id = hcloud_network.network.id
+    network_id = hcloud_network.private-lan.id
     ip = "10.0.1.5"
     }
-    
+
   # **Note**: the depends_on is important when directly attaching the
   # server to a network. Otherwise Terraform will attempt to create
   # server and sub-network in parallel. This may result in the server
