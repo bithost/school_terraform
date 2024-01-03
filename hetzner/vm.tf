@@ -1,11 +1,18 @@
-resource "hcloud_network" "code_school" {
-  name     = "code_school"
-  ip_range = "10.0.1.0/24"
+resource "hcloud_network" "network" {
+  name     = "network"
+  ip_range = "10.0.0.0/16"
+}
+
+resource "hcloud_network_subnet" "network-subnet" {
+  type         = "cloud"
+  network_id   = hcloud_network.network.id
+  network_zone = "eu-central"
+  ip_range     = "10.0.1.0/24"
 }
 
 
 //main.tf
-resource "hcloud_server" "controller" {
+resource "hcloud_server" "kube" {
   name = "kube.lanlab.xyz"
   server_type = "cx11"
   image = "ubuntu-22.04"
@@ -19,10 +26,19 @@ resource "hcloud_server" "controller" {
     ipv6_enabled = false
   }
     network {
-    network_id = hcloud_network.code_school.id
-    ip         = "10.0.1.5"
+    network_id = hcloud_network.network.id
+    ip = "10.0.1.5"
     }
+    
+  # **Note**: the depends_on is important when directly attaching the
+  # server to a network. Otherwise Terraform will attempt to create
+  # server and sub-network in parallel. This may result in the server
+  # creation failing randomly.
+  depends_on = [
+    hcloud_network_subnet.network-subnet
+  ]
 }
+
 
 
 #variable "vm_name" {
