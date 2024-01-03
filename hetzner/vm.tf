@@ -1,5 +1,5 @@
-resource "hcloud_network" "school" {
-  name     = "code-school"
+resource "hcloud_network" "code_school" {
+  name     = "code_school"
   ip_range = "10.0.1.0/24"
 }
 
@@ -19,7 +19,7 @@ resource "hcloud_server" "controller" {
     ipv6_enabled = false
   }
     network {
-    network_id = hcloud_network.school.id
+    network_id = hcloud_network.code_school.id
     ip         = "10.0.1.5"
     }
 }
