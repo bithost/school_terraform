@@ -12,14 +12,14 @@ resource "hcloud_network_subnet" "network-subnet" {
 
 resource "hcloud_network" "private-lan" {
   name     = "private-lan"
-  ip_range = "10.0.0.0/16"
+  ip_range = "10.10.0.0/16"
 }
 
 resource "hcloud_network_subnet" "private-subnet" {
   type         = "cloud"
   network_id   = hcloud_network.private-lan.id
   network_zone = "eu-central"
-  ip_range     = "10.0.1.0/24"
+  ip_range     = "10.10.1.0/24"
 }
 
 
@@ -39,7 +39,7 @@ resource "hcloud_server" "kube" {
   }
     network {
     network_id = hcloud_network.private-lan.id
-    ip = "10.0.1.5"
+    ip = "10.10.1.5"
     }
     
   # **Note**: the depends_on is important when directly attaching the
