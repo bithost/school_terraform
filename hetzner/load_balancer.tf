@@ -1,4 +1,4 @@
-resource "hcloud_load_balancer" "load_balancer" {
+resource "hcloud_load_balancer" "load_balancer_server" {
   name               = "school-lb"
   load_balancer_type = "lb11"
   location           = "hel1"
@@ -19,7 +19,7 @@ resource "hcloud_load_balancer" "load_balancer" {
   }
 }
 resource "hcloud_load_balancer_service" "web_lb_service" {
-  load_balancer_id = hcloud_load_balancer.load_balancer.id
+  load_balancer_id = hcloud_load_balancer.load_balancer_server.id
   protocol         = "http"
   listen_port      = "80"
   destination_port = "80"
@@ -37,7 +37,7 @@ resource "hcloud_load_balancer_service" "web_lb_service" {
 }
 
 resource "hcloud_server_network" "srvnetwork" {
-  server_id  = hcloud_load_balancer.load_balancer.id
+  server_id  = hcloud_load_balancer.load_balancer_server.id
   network_id = hcloud_network.private-lan.id
   ip         = "10.10.1.15"
 
