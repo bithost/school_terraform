@@ -1,18 +1,18 @@
 resource "hcloud_load_balancer" "load_balancer" {
   name               = "school-lb"
   load_balancer_type = "lb11"
-  location           = "nbg1"
+  location           = "hel1"
   labels = {
     type = "web"
   }
 
-#  dynamic "target" {
-#    for_each = hcloud_server.web
-#    content {
-#      type      = "server"
-#      server_id = target.value["id"]
- #   }
- # }
+  dynamic "target" {
+    for_each = hcloud_server.web
+    content {
+      type      = "server"
+      server_id = target.value["id"]
+    }
+  }
 
   algorithm {
     type = "round_robin"
