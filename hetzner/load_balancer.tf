@@ -38,7 +38,6 @@ resource "hcloud_load_balancer_service" "web_lb_service" {
 
 resource "hcloud_load_balancer_network" "web_network" {
   load_balancer_id        = hcloud_load_balancer.load_balancer.id
-  subnet_id               = hcloud_network_subnet.private-subnet.id
+  subnet_id               = hcloud_network_subnet.private-lan.id
   enable_public_interface = "true"
-  ip               = "10.10.1.200"
 }
