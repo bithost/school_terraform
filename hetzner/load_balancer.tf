@@ -10,7 +10,7 @@ resource "hcloud_load_balancer" "load_balancer" {
     for_each = hcloud_server.web
     content {
       type      = "server"
-      server_id = target.value["id"]
+      server_id = target.value.id
     }
   }
 
