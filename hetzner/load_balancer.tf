@@ -36,7 +36,7 @@ resource "hcloud_load_balancer_service" "web_lb_service" {
   }
 }
 
-resource "hcloud_load_balancer_network" "web_network" {
+resource "hcloud_load_balancer_network" "private-subnet" {
   load_balancer_id        = hcloud_load_balancer.load_balancer.id
   subnet_id               = hcloud_network.private-lan.id
   enable_public_interface = "true"
