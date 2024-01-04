@@ -39,7 +39,6 @@ resource "hcloud_load_balancer_service" "web_lb_service" {
 resource "hcloud_server_network" "srvnetwork" {
   server_id  = hcloud_load_balancer.load_balancer.id
   network_id = hcloud_network.private-lan.id
-  ip         = "10.10.1.5"
-}
+  ip         = "10.10.1.15"
 
 }
