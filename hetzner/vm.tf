@@ -1,11 +1,12 @@
-resource "hcloud_server" "kube" {
-  name = "kube.lanlab.xyz"
+resource "hcloud_server" "web" {
+  count = 3
+  name = "web-server-${count.index}"
   server_type = "cx11"
   image = "ubuntu-22.04"
   #ssh_keys = [hcloud_ssh_key.default.id,hcloud_ssh_key.ansible.id, ]
   location = "hel1"
   labels = {
-    role = "kube"
+    role = "web"
   }
     public_net {
     ipv4_enabled = false
