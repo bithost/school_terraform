@@ -6,13 +6,13 @@ resource "hcloud_load_balancer" "load_balancer" {
     type = "web"
   }
 
-  dynamic "target" {
-    for_each = hcloud_server.web
-    content {
-      type      = "server"
-      server_id = target.value["id"]
-    }
-  }
+#  dynamic "target" {
+#    for_each = hcloud_server.web
+#    content {
+#      type      = "server"
+#      server_id = target.value["id"]
+ #   }
+ # }
 
   algorithm {
     type = "round_robin"
@@ -39,7 +39,6 @@ resource "hcloud_load_balancer_service" "web_lb_service" {
 resource "hcloud_load_balancer_network" "web_network" {
   load_balancer_id        = hcloud_load_balancer.load_balancer.id
   subnet_id               = hcloud_network.private-lan.id
-  ip = "10.10.1.200"
   enable_public_interface = "true"
 
 }
