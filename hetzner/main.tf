@@ -1,3 +1,0 @@
-# Define Hetzner provider token
-
-
