@@ -40,4 +40,5 @@ resource "hcloud_load_balancer_network" "web_network" {
   load_balancer_id        = hcloud_load_balancer.load_balancer.id
   subnet_id               = hcloud_network_subnet.private-subnet.id
   enable_public_interface = "true"
+  ip               = "10.0.1.200"
 }
