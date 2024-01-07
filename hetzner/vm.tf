@@ -26,6 +26,33 @@ resource "hcloud_server" "web" {
   ]
 }
 
+resource "hcloud_server" "load_balancer" {
+  name = "lb-server"
+  server_type = "cax11"
+  image = "ubuntu-22.04"
+  #ssh_keys = [hcloud_ssh_key.default.id,hcloud_ssh_key.ansible.id, ]
+  location = "hel1"
+  labels = {
+    role = "lb"
+  }
+    public_net {
+    ipv4_enabled = true
+    ipv6_enabled = false
+  }
+    network {
+    network_id = hcloud_network.private-lan.id
+    ip = "10.10.1.20"
+    }
+    
+  # **Note**: the depends_on is important when directly attaching the
+  # server to a network. Otherwise Terraform will attempt to create
+  # server and sub-network in parallel. This may result in the server
+  # creation failing randomly.
+  depends_on = [
+    hcloud_network_subnet.private-subnet
+  ]
+}
+
 
 
 #variable "vm_name" {
