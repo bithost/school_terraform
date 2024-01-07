@@ -51,6 +51,7 @@ resource "hcloud_server" "load_balancer" {
   depends_on = [
     hcloud_network_subnet.private-subnet
   ]
+  user_data = file("user_data_lb.yml")
 }
 
 
@@ -67,9 +68,4 @@ resource "hcloud_server" "load_balancer" {
  #name       = "tadas@code"
  #public_key = file("~/.ssh/id_rsa.pub")
 #}
-#resource "hcloud_ssh_key" "ansible" {
- #name       = "ansible@ansible"
- #public_key = file("~/.ssh/ansible.pub")
-
-#
 

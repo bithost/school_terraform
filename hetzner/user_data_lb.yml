@@ -1,0 +1,38 @@
+#cloud-config
+users:
+  - name: ansible
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQChEns/DSxRYm+wFUdEtGnMz38Lw8rgHaHFyHtYUzEt4iINQrd6/RHsxvpsBmQZ9XnzIFkqCi0xGYPLlVBgcpT+ju+eoNbYkaDcLJd2JzJYA+DtrEi4ojXcUUy7k0O5+mfW1+gCDa+vM6Sx/fDU4BtgdPqoBOZ8814ffC4gDx9HkBkfn5FWY9rrWxlSVZFtxCYCSQPzElwttKGL9fhQaXf+yrQGpN+10/G4XbpCOvPOtnwnABojWkJovEO/0P9eKsFclMqtGac9uZnyLXrs8StaREv06T37/gz0xtodJ802+VxoStQR8vWD1uCf+9x0yRYhHUE3azOupoULryW0Ed96KZAflU/khQ9SukQzHOX2WEtSR3RxeRyTm60ir+fmhVMeHzghnUDnLVH0fPfu3+EEajZxBdesEN+eRw7W46Vd8CAUhb5LPIqtqWEryZryLxOYxa9zbW2vC2PT0Z6xRs+LBdwSeJvNJ/O/GU8YFSfylvjMj4penQ+GU1GWOORwKX0= ansible@ansible
+package_update: true
+package_upgrade: true
+apt_upgrade: true
+apt:
+    sources:
+        caddy:
+            source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/ubuntu focal main
+packages:
+  - caddy
+  - fail2ban
+  - ufw
+runcmd:
+  - systemctl enable caddy
+  - ufw allow 'Caddy HTTP'
+  - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+  - systemctl enable fail2ban
+  - systemctl start fail2ban
+  - ufw allow 'OpenSSH'
+  - ufw enable
+  - sed -ie '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -ie '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - sed -ie '/^X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
+  - sed -ie '/^#MaxAuthTries/s/^.*$/MaxAuthTries 2/' /etc/ssh/sshd_config
+  - sed -ie '/^#AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
+  - sed -ie '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
+  - sed -ie '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh/authorized_keys/' /etc/ssh/sshd_config
+  - sed -i '$a AllowUsers devops' /etc/ssh/sshd_config
+  - systemctl restart ssh
+#  - rm /var/www/html/*
+#  - echo "Hello! I am Nginx @ $(curl -s ipinfo.io/ip)! This record added at $(date -u)." >>/var/www/html/index.html
