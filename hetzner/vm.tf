@@ -3,7 +3,7 @@ resource "hcloud_server" "web" {
   name = "web-server-${count.index}"
   server_type = "cax11"
   image = "ubuntu-22.04"
-  #ssh_keys = [hcloud_ssh_key.default.id,hcloud_ssh_key.ansible.id, ]
+  ssh_keys = [hcloud_ssh_key.ansible_key.id ]
   location = "hel1"
   labels = {
     role = "web"
