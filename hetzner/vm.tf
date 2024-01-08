@@ -14,7 +14,7 @@ resource "hcloud_server" "web" {
   }
     network {
     network_id = hcloud_network.private-lan.id
-    ip = "10.10.1.${min(count.index + 1, 10)}"
+    ip = "10.10.1.1${min(count.index + 1, 10)}"
     }
     
   # **Note**: the depends_on is important when directly attaching the
