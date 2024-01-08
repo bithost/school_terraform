@@ -3,7 +3,7 @@ resource "hcloud_server" "web" {
   name = "web-server-${count.index}"
   server_type = "cax11"
   image = "ubuntu-22.04"
-  ssh_keys = [hcloud_ssh_key.ansible_key.id ]
+  #ssh_keys = [hcloud_ssh_key.ansible_key.id ]
   location = "hel1"
   labels = {
     role = "web"
@@ -24,6 +24,7 @@ resource "hcloud_server" "web" {
   depends_on = [
     hcloud_network_subnet.private-subnet
   ]
+  user_data = file("user_data_general.yml")
 }
 
 resource "hcloud_server" "load_balancer" {
@@ -51,7 +52,7 @@ resource "hcloud_server" "load_balancer" {
   depends_on = [
     hcloud_network_subnet.private-subnet
   ]
-  user_data = file("user_data_lb.yml")
+  user_data = file("user_data_general.yml")
 }
 
 
