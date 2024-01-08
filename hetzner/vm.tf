@@ -52,7 +52,7 @@ resource "hcloud_server" "load_balancer" {
   depends_on = [
     hcloud_network_subnet.private-subnet
   ]
-  user_data = file("user_data_lb.yml")
+  user_data = file("test.sh")
 }
 
 
