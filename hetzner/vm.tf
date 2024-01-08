@@ -30,7 +30,7 @@ resource "hcloud_server" "load_balancer" {
   name = "lb-server"
   server_type = "cax11"
   image = "ubuntu-22.04"
-  #ssh_keys = [hcloud_ssh_key.default.id,hcloud_ssh_key.ansible.id, ]
+  ssh_keys = [hcloud_ssh_key.ansible_key.id ]
   location = "hel1"
   labels = {
     role = "lb"
