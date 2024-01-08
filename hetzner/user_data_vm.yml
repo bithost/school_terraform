@@ -1,0 +1,34 @@
+#cloud-config
+users:
+  - name: ansible
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCq8c4ByK/AiDCeep1xdwaq3Hv3Rxbqga0iB3VPMENE7AEBpwExDGxUXUbYEOjTfy1aNhupHp4GVwIeL/WDQzPbSgnbT9RVqjhMm+XdWoaX+0c2v32Q8UBYvFsh44bhEW+GqHPjEX0Z1ee+BdcPkvo7pSFQW8Uyfahe0dw9mVHKHsgQAbPVReHcaisWgQxHoC7lSvPbBXsUxljyuh0QtAI717LDaQQeWLsBSffZsa4AfdZUYWjHl/sBmGWRVW8Bgj1L4rXEWce0mhzJn0hztcMI6ihaM9b1oxBf+sidIKlQQhQfzohgvhT73vY1eaHf7nbfFPsI5LOo3TrY5McgC8DpeUrf0nxIEaQsztKP4kqWmL4wogSu4NiaNqZqUuw/tAKcGd06VkNwEr+KqLqeBYuM09i3sJ9jUiE1q3f/1ARNrN27E8UbcQSCIDGYsJxD6Xun0lcXnz1o8mHJWIF2JkqxuIiL0SpdP+cjUvsPYbCiU7H9dChB+gomSYzLCpdY+a0= ansible@ansible
+package_update: true
+package_upgrade: true
+apt_upgrade: true
+packages:
+#  - caddy
+#  - fail2ban
+  - ufw
+runcmd:
+#  - systemctl enable caddy
+#  - ufw allow 'Caddy HTTP'
+#  - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+#  - systemctl enable fail2ban
+#  - systemctl start fail2ban  
+  - ufw allow 'OpenSSH'
+  - ufw enable
+#  - sed -ie '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+#  - sed -ie '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+ # - sed -ie '/^X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
+ # - sed -ie '/^#MaxAuthTries/s/^.*$/MaxAuthTries 2/' /etc/ssh/sshd_config
+ # - sed -ie '/^#AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
+ # - sed -ie '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
+ # - sed -ie '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh/authorized_keys/' /etc/ssh/sshd_config
+ # - sed -i '$a AllowUsers ansible' /etc/ssh/sshd_config
+#  - systemctl restart ssh
+#  - rm /var/www/html/*
+#  - echo "Hello! I am Nginx @ $(curl -s ipinfo.io/ip)! This record added at $(date -u)." >>/var/www/html/index.html

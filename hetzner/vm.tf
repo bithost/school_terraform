@@ -24,7 +24,7 @@ resource "hcloud_server" "web" {
   depends_on = [
     hcloud_network_subnet.private-subnet
   ]
-  user_data = file("user_data_general.yml")
+  user_data = file("user_data_vm.yml")
 }
 
 resource "hcloud_server" "load_balancer" {
@@ -52,7 +52,7 @@ resource "hcloud_server" "load_balancer" {
   depends_on = [
     hcloud_network_subnet.private-subnet
   ]
-  user_data = file("user_data_general.yml")
+  user_data = file("user_data_lb.yml")
 }
 
 
