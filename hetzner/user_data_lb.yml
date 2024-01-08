@@ -17,8 +17,8 @@ packages:
   - caddy
   - ufw
 runcmd:
-  - systemctl enable caddy
-  - ufw allow 'Caddy HTTP'
-  - ufw allow 'OpenSSH'
-  - ufw enable
-  - curl https://my-netdata.io/kickstart.sh > /tmp/netdata-kickstart.sh && sh /tmp/netdata-kickstart.sh --nightly-channel --claim-token Ec04MWdZLjQy7I2df2QLvi8QyEVxdYrW7WgI8FvAUHIazA3XkaoSPkmymxFQE-04N6GZdgF29qBqHQmaA1RIo6BrC-5uP-2wwznHDesdYINNiPsIa82i3brwk9e9KpSCDH_n2CM --claim-rooms 603437f5-ab76-4a58-8fd1-afdd8f67f460 --claim-url https://app.netdata.cloud
+#  - systemctl enable caddy
+#  - ufw allow 'Caddy HTTP'
+#  - ufw allow 'OpenSSH'
+#  - ufw enable
+  - "curl https://my-netdata.io/kickstart.sh > /tmp/netdata-kickstart.sh && sh /tmp/netdata-kickstart.sh --nightly-channel --claim-token Ec04MWdZLjQy7I2df2QLvi8QyEVxdYrW7WgI8FvAUHIazA3XkaoSPkmymxFQE-04N6GZdgF29qBqHQmaA1RIo6BrC-5uP-2wwznHDesdYINNiPsIa82i3brwk9e9KpSCDH_n2CM --claim-rooms 603437f5-ab76-4a58-8fd1-afdd8f67f460 --claim-url https://app.netdata.cloud"
