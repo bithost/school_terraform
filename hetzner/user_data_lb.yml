@@ -16,7 +16,6 @@ packages:
   - caddy
 #  - fail2ban
   - ufw
-  - curl
 runcmd:
   - systemctl enable caddy
   - ufw allow 'Caddy HTTP'
