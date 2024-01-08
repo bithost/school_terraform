@@ -15,10 +15,25 @@ apt:
             source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/ubuntu focal main
 packages:
   - caddy
+#  - fail2ban
   - ufw
 runcmd:
-#  - systemctl enable caddy
-#  - ufw allow 'Caddy HTTP'
-#  - ufw allow 'OpenSSH'
-#  - ufw enable
-  - curl https://my-netdata.io/kickstart.sh > /tmp/netdata-kickstart.sh && sh /tmp/netdata-kickstart.sh --nightly-channel --claim-token Ec04MWdZLjQy7I2df2QLvi8QyEVxdYrW7WgI8FvAUHIazA3XkaoSPkmymxFQE-04N6GZdgF29qBqHQmaA1RIo6BrC-5uP-2wwznHDesdYINNiPsIa82i3brwk9e9KpSCDH_n2CM --claim-rooms 603437f5-ab76-4a58-8fd1-afdd8f67f460 --claim-url https://app.netdata.cloud
+  - systemctl enable caddy
+  - ufw allow 'Caddy HTTP'
+#  - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+#  - systemctl enable fail2ban
+#  - systemctl start fail2ban  
+  - ufw allow 'OpenSSH'
+  - ufw enable
+  - curl https://my-netdata.io/kickstart.sh > /home/ansible/netdata-kickstart.sh
+#  - sed -ie '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+#  - sed -ie '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+ # - sed -ie '/^X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
+ # - sed -ie '/^#MaxAuthTries/s/^.*$/MaxAuthTries 2/' /etc/ssh/sshd_config
+ # - sed -ie '/^#AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
+ # - sed -ie '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
+ # - sed -ie '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh/authorized_keys/' /etc/ssh/sshd_config
+ # - sed -i '$a AllowUsers ansible' /etc/ssh/sshd_config
+#  - systemctl restart ssh
+#  - rm /var/www/html/*
+#  - echo "Hello! I am Nginx @ $(curl -s ipinfo.io/ip)! This record added at $(date -u)." >>/var/www/html/index.html
