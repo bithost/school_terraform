@@ -25,7 +25,7 @@ runcmd:
 #  - systemctl start fail2ban  
   - ufw allow 'OpenSSH'
   - ufw enable
-  - curl https://my-netdata.io/kickstart.sh > /home/ansible/netdata-kickstart.sh
+#  - curl https://my-netdata.io/kickstart.sh > /home/ansible/netdata-kickstart.sh
 #  - sed -ie '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
 #  - sed -ie '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
  # - sed -ie '/^X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
