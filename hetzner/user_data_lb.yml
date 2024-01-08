@@ -11,6 +11,7 @@ package_upgrade: true
 apt:
     sources:
         caddy:
+            keyid: FDF3079D8A18AC6F
             source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/ubuntu focal main
 packages:
   - caddy
@@ -18,6 +19,7 @@ packages:
   - ufw
 runcmd:
   - systemctl enable caddy
+  - wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh && sh /tmp/netdata-kickstart.sh --stable-channel --claim-token tW9WbpTndZOlPmOxk29eyWKPYzgyc_gMRefdHz8jhK5tEgfz4n_nsUFS_Dfc-Zu3RmI4jw8Bl3e0E5GCEvGEIV2_6qBh5R_dMLs3LZxBFzSu_TsMDyam0JnyqzoQPJ4xnThObws --claim-rooms 0d72f373-62bc-4208-ad9d-d299eafe7b3b --claim-url https://app.netdata.cloud
   - ufw allow 'Caddy HTTP'
 #  - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
 #  - systemctl enable fail2ban
