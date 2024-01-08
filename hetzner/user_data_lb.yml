@@ -11,8 +11,7 @@ package_upgrade: true
 apt:
     sources:
         caddy:
-            keyid: FDF3079D8A18AC6F
-            source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/ubuntu focal main
+            source: deb [trusted=yes] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main
 packages:
   - caddy
 #  - fail2ban
