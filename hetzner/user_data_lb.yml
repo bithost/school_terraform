@@ -8,7 +8,6 @@ users:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCq8c4ByK/AiDCeep1xdwaq3Hv3Rxbqga0iB3VPMENE7AEBpwExDGxUXUbYEOjTfy1aNhupHp4GVwIeL/WDQzPbSgnbT9RVqjhMm+XdWoaX+0c2v32Q8UBYvFsh44bhEW+GqHPjEX0Z1ee+BdcPkvo7pSFQW8Uyfahe0dw9mVHKHsgQAbPVReHcaisWgQxHoC7lSvPbBXsUxljyuh0QtAI717LDaQQeWLsBSffZsa4AfdZUYWjHl/sBmGWRVW8Bgj1L4rXEWce0mhzJn0hztcMI6ihaM9b1oxBf+sidIKlQQhQfzohgvhT73vY1eaHf7nbfFPsI5LOo3TrY5McgC8DpeUrf0nxIEaQsztKP4kqWmL4wogSu4NiaNqZqUuw/tAKcGd06VkNwEr+KqLqeBYuM09i3sJ9jUiE1q3f/1ARNrN27E8UbcQSCIDGYsJxD6Xun0lcXnz1o8mHJWIF2JkqxuIiL0SpdP+cjUvsPYbCiU7H9dChB+gomSYzLCpdY+a0= ansible@ansible
 package_update: true
 package_upgrade: true
-apt_upgrade: true
 apt:
     sources:
         caddy:
@@ -17,6 +16,7 @@ packages:
   - caddy
 #  - fail2ban
   - ufw
+  - curl
 runcmd:
   - systemctl enable caddy
   - ufw allow 'Caddy HTTP'
